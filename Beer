@@ -1,0 +1,143 @@
+package Beer;
+
+import java.util.ArrayList;
+
+public class BeerMain {
+    public static void main(String[] args) {
+        Order order1 = new Order(10, 0.5);
+        Order order2 = new Order(18, 0.5);
+        Order order3 = new Order(28, 1);
+        Order order4 = new Order(32, 1);
+        Order order5 = new Order(57, 1);
+        Order order6 = new Order(101, 1);
+        Order order7 = new Order(103, 1);
+        Order order8 = new Order(201, 1);
+
+        ArrayList<Order> myOrderList = new ArrayList<>();
+        myOrderList.add(order1);
+        myOrderList.add(order2);
+        myOrderList.add(order3);
+        myOrderList.add(order4);
+        myOrderList.add(order5);
+        myOrderList.add(order6);
+        myOrderList.add(order7);
+        myOrderList.add(order8);
+
+        Logic logic = new Logic(myOrderList);
+    }
+}
+
+class Order{
+    private int numbOfBut;
+    private double VofBut ;
+
+    public Order(int numbOfBut, double vofBut) {
+        this.numbOfBut = numbOfBut;
+        this.VofBut = vofBut;
+    }
+
+    public int getNumbOfBut() {
+        return numbOfBut;
+    }
+
+    public double getVofBut() {
+        return VofBut;
+    }
+}
+
+class Logic{
+    private int numbOfBut;
+    private double VofBut ;
+    private int[] list = {25, 16, 12, 10, 8, 6};
+    private int[] listZac;
+    private ArrayList<Order> myOrderList ;
+
+    public Logic(ArrayList<Order> myOrderList) {
+            this.myOrderList = myOrderList;
+            myFor();
+    }
+
+    private void myFor(){
+        for (int i = 0 ; i<myOrderList.size(); i++ ){
+            numbOfBut = myOrderList.get(i).getNumbOfBut();
+            VofBut = myOrderList.get(i).getVofBut();
+            mainLogic();
+        }
+    }
+
+    private void mainLogic(){
+        double a = numbOfBut*VofBut ;
+        //System.out.println(a);
+
+        int col = (int)Math.round(a);
+        int tempCol = col;
+        //System.out.println(col);
+
+        int a25 = 0 ;
+        int а16 = 0 ;
+        int а12 = 0 ;
+        int а10 = 0 ;
+        int а8 = 0 ;
+        int а6 = 0;
+
+        if (col == 29 || col == 30 || col == 31) {a25 = a25 +1 ; а6 = а6+1 ; col= 0;}
+        if (col == 27 || col == 28 ) {а16 = а16+1 ; а12 = а12+1 ;  col= 0;}
+        if (col == 26) {а16 = а16+1 ; а10 = а10+1 ;  col= 0;}
+        if (col == 25) {a25 = a25 +1 ; col= 0;}
+        if (col  >22 && col<= 24) {а16 = а16+1 ; а8 = а8+1 ; col= 0;}
+        if (col  >16 && col<= 22) {а16 = а16+1 ; а6 = а6+1 ; col= 0;}
+        if (col  >12 && col<= 16) {а16 = а16+1 ; col= 0;}
+        if (col  >10 && col<= 12) {а12 = а12+1 ; col= 0;}
+        if (col  >8 && col<= 10) {а10 = а10+1 ; col= 0;}
+        if (col  >6 && col<= 8) {а8 = а8+1 ; col= 0;}
+        if (col >0 && col <= 6) {а6 = а6+1 ; col= 0;}
+
+        if (col > 31 && (col-((col/25)*25))<=6){
+            a25 = (col/25)-1;
+            col = col - ((col/25-1)*25);
+
+            if (col == 29 || col == 30 || col == 31) {a25 = a25 +1; а6 = а6+1 ; col= 0;}
+            if (col == 27 || col == 28 ) {а16 = а16+1; а12 = а12+1 ; col= 0;}
+            if (col == 26) {а16 = а16+1; а10 = а10+1 ;  col= 0;}
+            if (col == 25) {a25 = a25 +1; col= 0;}
+            if (col  >22 && col<= 24) {а16 = а16+1; а8 = а8+1 ; col= 0;}
+            if (col  >16 && col<= 22) {а16 = а16+1; а6 = а6+1 ; col= 0;}
+            if (col  >12 && col<= 16) {а16 = а16+1; col= 0;}
+            if (col  >10 && col<= 12) {а12 = а12+1; col= 0;}
+            if (col  >8 && col<= 10) {а10 = а10+1; col= 0;}
+            if (col  >6 && col<= 8) {а8 = а8+1; col= 0;}
+            if (col >0 && col <= 6) {а6 = а6+1; col= 0;}
+        }
+
+        if (col > 31){
+            a25 = col/25; col = col - a25*25;
+            if (col == 29 || col == 30 || col == 31) {a25 = a25 +1; а6 = а6+1 ; col= 0;}
+            if (col == 27 || col == 28 ) {а16 = а16+1; а12 = а12+1 ; col= 0;}
+            if (col == 26) {а16 = а16+1; а10 = а10+1 ;  col= 0;}
+            if (col == 25) {a25 = a25 +1; col= 0;}
+            if (col  >22 && col<= 24) {а16 = а16+1; а8 = а8+1 ; col= 0;}
+            if (col  >16 && col<= 22) {а16 = а16+1; а6 = а6+1 ; col= 0;}
+            if (col  >12 && col<= 16) {а16 = а16+1; col= 0;}
+            if (col  >10 && col<= 12) {а12 = а12+1; col= 0;}
+            if (col  >8 && col<= 10) {а10 = а10+1; col= 0;}
+            if (col  >6 && col<= 8) {а8 = а8+1; col= 0;}
+            if (col >0 && col <= 6) {а6 = а6+1; col= 0;}
+        }
+
+
+        listZac = new int []{a25, а16, а12, а10,  а8, а6  };
+
+        System.out.println("Ordered: " + numbOfBut +" bottles of "+ VofBut +" liters ");
+        System.out.println("We need: " + tempCol +" cells.");
+
+        System.out.print("We have to prepare: "  );
+
+        for (int i = 0 ; i<listZac.length ; i++){
+            if (listZac[i] != 0 ) {
+            System.out.print( listZac[i] + " box (s) for = " + list[i]+"  cells; " );}
+        }
+        System.out.println(" ");
+        System.out.println(" ------------------------------------------- ");
+    }
+}
+
